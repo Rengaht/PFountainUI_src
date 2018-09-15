@@ -29,9 +29,10 @@ public:
 	virtual void update(float dt_);
 	virtual void reset();
 
-	void handleMousePressed(float mouse_x,float mouse_y);
+	void handleMousePressed(float mouse_x,float mouse_y);	
 	virtual void buttonEvent(int index){}
-
+	ofVec2f _mouse_pos;
+	
 	vector<ofRectangle> _button;
 	FrameTimer _timer_in[4];
 	FrameTimer _timer_out[4];

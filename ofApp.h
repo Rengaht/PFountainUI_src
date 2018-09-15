@@ -1,10 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxTrueTypeFontUC.h"
 #include "SceneBase.h"
 
 
-#define DRAW_DEBUG
+//#define DRAW_DEBUG
 
 class ofApp : public ofBaseApp{
 
@@ -45,5 +46,10 @@ class ofApp : public ofBaseApp{
 		void onSceneInFinish(int &e);
 		void onSceneOutFinish(int &e);
 		
+		ofxTrueTypeFontUC _font_wish;
+		string ws2s(const wstring& wstr);
 
+		wstring _user_wish;
+		int _user_color_wish;
+		
 };

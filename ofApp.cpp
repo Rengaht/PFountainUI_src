@@ -1,3 +1,6 @@
+#include <locale>
+#include <codecvt>
+
 #include "ofApp.h"
 #include "SceneSleep.h"
 #include "SceneDeco.h"
@@ -21,6 +24,16 @@ void ofApp::setup(){
 
 	ofAddListener(SceneBase::sceneInFinish,this,&ofApp::onSceneInFinish);
 	ofAddListener(SceneBase::sceneOutFinish,this,&ofApp::onSceneOutFinish);
+	
+	
+	ofEnableSmoothing();
+	ofSetCircleResolution(48);  
+
+	_font_wish.loadFont("NotoSerifCJKtc-Medium.otf",128,true,true);
+	_font_wish.setLetterSpacing(1.2);	
+	_font_wish.setGlobalDpi(300);
+
+	
 
 }
 
@@ -61,9 +74,14 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+	
+
 	switch(key){
-		case 'a':
-			setScene(SceneMode((_mode+1)%5));
+		//case 'a':
+		//	setScene(SceneMode((_mode+1)%5));
+		//	break;
+		case 'f':
+			ofToggleFullscreen();
 			break;
 	}
 }
@@ -134,7 +152,13 @@ void ofApp::setScene(SceneMode set_){
 	_mode=set_;
 
 	_scene[_mode_pre]->end();
+	
+	if(_mode==SceneMode::DECO){
+		((SceneDeco*)_scene[_mode])->setWish(_user_wish,_user_color_wish);
+	}
+
 	_scene[_mode]->init();
+	
 	
 	_in_transition=true;
 }
@@ -146,4 +170,22 @@ void ofApp::onSceneInFinish(int &e){
 void ofApp::onSceneOutFinish(int &e){
 	ofLog()<<"scene out finish!";
 
+}
+
+string ofApp::ws2s(const wstring& wstr){
+
+	/*int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, 0);
+	string strTo( size_needed, 0 );
+	WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &strTo[0], size_needed, NULL, 0);*/
+	
+	/*using convert_type = std::codecvt_utf16<wchar_t>;
+	std::wstring_convert<convert_type, wchar_t> converter;
+	std::string strTo=converter.to_bytes(wstr);*/
+
+	//string strTo(wstr.begin(),wstr.end());
+
+//	return strTo;
+	static std::locale loc("");
+	auto &facet = std::use_facet<std::codecvt<wchar_t, char, std::mbstate_t>>(loc);
+	return std::wstring_convert<std::remove_reference<decltype(facet)>::type, wchar_t>(&facet).to_bytes(wstr);
 }

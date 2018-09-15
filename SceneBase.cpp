@@ -113,9 +113,14 @@ void SceneBase::reset(){
 void SceneBase::handleMousePressed(float mouse_x,float mouse_y){
 	
 	if(_status!=SceneStatus::Due) return;
+
 	
 	float scalex=mouse_x*WinScale;
 	float scaley=mouse_y*WinScale;
+
+	_mouse_pos.x=scalex;
+	_mouse_pos.y=scaley;
+
 
 	int len=_button.size();
 	for(int i=0;i<len;++i){

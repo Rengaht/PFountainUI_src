@@ -99,8 +99,10 @@ public:
 
 	}
 	void onSceneInFinish(int &e){	
-		ofLog()<<"scene in finish!";
-		_timer_count.restart();
+		if(e==_order_scene){
+			ofLog()<<"scene in finish!";
+			_timer_count.restart();
+		}
 		
 	}
 
