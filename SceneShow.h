@@ -14,6 +14,9 @@ class SceneShow:public SceneBase{
 	ofImage _img_number[3];
 	ofImage _img_count,_img_show;
 	bool _onshow;
+
+	ofSoundPlayer _sound_count;
+
 public:
 	SceneShow(ofApp *set_ptr):SceneBase(set_ptr){
 		loadImage();
@@ -22,6 +25,7 @@ public:
 		_timer_count=FrameTimer(3000);
 		_timer_show=FrameTimer(15000);
 		_timer_blink=FrameTimer(1000);
+
 
 		ofAddListener(SceneBase::sceneInFinish,this,&SceneShow::onSceneInFinish);
 		
@@ -43,6 +47,8 @@ public:
 		
 		_img_count.loadImage("ui/count.png");
 		_img_count.setAnchorPercent(.5,.5);
+
+		_sound_count.load("sound/count3.wav");
 	}	
 
 	void draw(bool debug_){
@@ -102,6 +108,7 @@ public:
 		if(e==_order_scene){
 			ofLog()<<"scene in finish!";
 			_timer_count.restart();
+			_sound_count.play();
 		}
 		
 	}

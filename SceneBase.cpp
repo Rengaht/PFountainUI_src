@@ -126,6 +126,8 @@ void SceneBase::handleMousePressed(float mouse_x,float mouse_y){
 	for(int i=0;i<len;++i){
 		if(_button[i].inside(scalex,scaley)){
 			buttonEvent(i);
+			if(i<1) SoundButton.play();
+			else SoundIcon.play();
 		}
 	}
 }

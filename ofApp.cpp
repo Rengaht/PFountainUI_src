@@ -12,9 +12,15 @@
 
 ofColor ofApp::MainColor[5]={ofColor(255,108,230),ofColor(108,255,176),ofColor(108,191,255),ofColor(255,173,108),ofColor(255,108,120)};
 
+ofSoundPlayer SceneBase::SoundButton=ofSoundPlayer();
+ofSoundPlayer SceneBase::SoundIcon=ofSoundPlayer();
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 	
+	SceneBase::SoundButton.load("sound/button.wav");
+	SceneBase::SoundIcon.load("sound/icon.wav");
+
 	loadScene();
 	_mode_pre=SceneMode::SLEEP;
 	setScene(SceneMode::SLEEP);
@@ -29,7 +35,7 @@ void ofApp::setup(){
 	ofEnableSmoothing();
 	ofSetCircleResolution(48);  
 
-	_font_wish.loadFont("NotoSerifCJKtc-Medium.otf",128,true,true);
+	_font_wish.loadFont("font/NotoSerifCJKtc-Medium.otf",128,true,true);
 	_font_wish.setLetterSpacing(1.2);	
 	_font_wish.setGlobalDpi(300);
 

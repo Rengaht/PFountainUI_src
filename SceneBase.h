@@ -43,6 +43,10 @@ public:
 
 	static ofEvent<int> sceneInFinish;
 	static ofEvent<int> sceneOutFinish;
+
+	static ofSoundPlayer SoundIcon;
+	static ofSoundPlayer SoundButton;
+
 };
 
 
